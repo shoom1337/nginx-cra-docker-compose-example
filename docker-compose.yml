@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  app:
+    container_name: react-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - "./app:/app"
+      - "/app/node_modules"
+    env_file:
+      - .env
+
+  nginx:
+    container_name: react-nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "${EXTERNAL_PORT}:80"
